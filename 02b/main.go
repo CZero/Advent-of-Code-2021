@@ -17,7 +17,7 @@ func main() {
 	lines, _ := readLines("input.txt") // lines contains the challenge input []string
 	_ = lines
 	Loc := ResolveLocation(lines)
-	fmt.Printf("The location of the sub is: %d,%d.\nMultiplied: %d", Loc.hor, Loc.dep, Loc.hor*Loc.dep)
+	fmt.Printf("The location of the sub is: %d,%d.\nMultiplied: %d\n", Loc.hor, Loc.dep, Loc.hor*Loc.dep)
 }
 
 func ResolveLocation(input []string) (Loc loc) {
