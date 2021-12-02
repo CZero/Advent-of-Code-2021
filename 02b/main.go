@@ -34,7 +34,7 @@ func DoAction(line string, Loc loc) loc {
 		panic(err)
 	}
 	switch instructions[0] {
-	case "forward":
+	case "forward": // Forward by x, depth is Aim*x
 		Loc.hor += inc
 		Loc.dep += inc * Loc.aim
 	case "down": // Increases aim by x units.
