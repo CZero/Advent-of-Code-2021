@@ -42,7 +42,7 @@ func DoAction(line string, Loc loc) loc {
 	case "up": // Increases aim by x units.
 		Loc.aim -= inc
 	default:
-		panic("Gotten a strange input!" + instructions[0])
+		panic("Gotten a strange input! " + instructions[0])
 	}
 	return Loc
 }
