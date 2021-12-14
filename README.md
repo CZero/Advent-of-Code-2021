@@ -2,7 +2,7 @@
 
 Working on [Advent of Code](https://adventofcode.com/)!
 
-![](https://img.shields.io/badge/stars%20⭐-17-yellow) ![](https://img.shields.io/badge/days%20completed-8-red)
+![](https://img.shields.io/badge/stars%20⭐-18-yellow) ![](https://img.shields.io/badge/days%20completed-9-red)
 
 |  day | Problem                 | A                    | B                    | Stars won                                            |
 | ---: | :---------------------- | :------------------- | :------------------- | :--------------------------------------------------- |
@@ -14,7 +14,7 @@ Working on [Advent of Code](https://adventofcode.com/)!
 |    6 | Lanternfish             | [**A**](06a/main.go) | [**B**](06b/main.go) | ![](https://img.shields.io/badge/stars%20⭐-2-yellow) |
 |    7 | The Treachery of Whales | [**A**](07a/main.go) | [**B**](07b/main.go) | ![](https://img.shields.io/badge/stars%20⭐-2-yellow) |
 |    8 | Seven Segment Search    | [**A**](08a/main.go) | [**B**](08b/main.go) | ![](https://img.shields.io/badge/stars%20⭐-2-yellow) |
-|    9 | Smoke Basin             | [**A**](09a/main.go) | [**B**](09b/main.go) | ![](https://img.shields.io/badge/stars%20⭐-1-yellow) |
+|    9 | Smoke Basin             | [**A**](09a/main.go) | [**B**](09b/main.go) | ![](https://img.shields.io/badge/stars%20⭐-2-yellow) |
 
 
 *Badges from: https://github.com/J0B10/aoc-badges-action*
