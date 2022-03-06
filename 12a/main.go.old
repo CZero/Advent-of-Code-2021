@@ -1,0 +1,76 @@
+package main
+
+import (
+	"12a/uls"
+	"fmt"
+	"strings"
+)
+
+func main() {
+	lines, _ := uls.ReadLines("smallexample.txt")
+	// lines, _ := uls.ReadLines("example.txt")
+	// lines, _ := readLines("input.txt")
+	_ = lines
+
+	var (
+		exits  = make(map[string][]string) // The possible exits of a room
+		start  = "start"
+		routes [][]string // The possible routes to get from start to end
+	)
+
+	LoadExits(lines, exits)
+	fmt.Printf("%#v\n\n", exits)
+	FindRoutes(start, exits, &routes)
+	fmt.Printf("Routes: %v\nDit zijn %d routes", routes, len(routes))
+}
+
+// LoadExits build a map of rooms with possible exits
+func LoadExits(lines []string, exits map[string][]string) {
+	for _, line := range lines {
+		elements := strings.Split(line, "-")
+		exits[elements[0]] = append(exits[elements[0]], elements[1])
+		exits[elements[1]] = append(exits[elements[1]], elements[0])
+	}
+	return
+}
+
+// FindRoutes explores possible routes. If it finds a travelled node it stops. If it finds the end, it returns
+// a route []string
+// added to the routes []string
+func FindRoutes(start string, exits map[string][]string, routes *[][]string) {
+	for _, exit := range exits[start] {
+		visited := make(map[string]bool) // Have we been here?
+		visited[start] = true
+		route := []string{start} // The route up until here
+		Travel(exit, route, exits, routes, visited)
+	}
+}
+
+// Travel uses:
+// Loc as location
+// Route as the path build till here
+// Exits contains the map of the roads
+// Routes contains all valid routes to ad a success to
+// Visited is a map to see if we've been here
+func Travel(loc string, route []string, exits map[string][]string, routes *[][]string, visited map[string]bool) {
+	if visited[loc] { // Have we been here?
+		// fmt.Printf("%s was visited already\n", loc)
+		return // Yep, stop.
+	}
+	// fmt.Printf("%s was not visited yet\n", loc)
+	if strings.ToLower(loc) == loc { // Check if not uppercase. We don't keep track of those.
+		visited[loc] = true
+	}
+	var visitedN = make(map[string]bool)
+	for k, v := range visited {
+		visitedN[k] = v
+	}
+	route = append(route, loc)
+	if loc == "end" {
+		*routes = append(*routes, route)
+		return
+	}
+	for _, exit := range exits[loc] {
+		Travel(exit, route, exits, routes, visitedN)
+	}
+}
