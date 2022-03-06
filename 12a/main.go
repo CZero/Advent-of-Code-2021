@@ -25,13 +25,14 @@ func main() {
 	cavesmap := ReadMap(maplines)
 	_ = cavesmap
 	start := solution{path: []string{"start"}, visited: map[string]int{"start": 1}}
-	// fmt.Printf("%#v\n", start)
 	explore(cavesmap, start)
 	for i, path := range found {
 		fmt.Printf("%2d: %v\n", i+1, path)
 	}
 }
 
+// expolore examens all exits. If viable it adds them to the path and starts a new explore
+// with the appended Solution
 func explore(cavesmap map[string][]string, Solution solution) {
 	for _, exit := range cavesmap[Solution.path[len(Solution.path)-1]] {
 		// First copy the solution to a new solution for detached travel per exit ;)
@@ -48,21 +49,16 @@ func explore(cavesmap map[string][]string, Solution solution) {
 		case exit == "end": // Einde!
 			onwards.path = append(onwards.path, exit)
 			found = append(found, onwards.path)
-			// fmt.Printf("Einde gevonden\n")
 		case !unicode.IsUpper(rune(exit[0])) && onwards.visited[exit] > 0: // Kleine grot reeds bezocht
-			// fmt.Printf("Exit: %s\nVisited: %#v\nPath: %#v\n", exit, onwards.visited, onwards.path)
-			// fmt.Printf("2e keer naar %s, ik stop..\n", exit)
 		case !unicode.IsUpper(rune(exit[0])) && onwards.visited[exit] == 0: // Kleine grot eerste bezoek
 			onwards.path = append(onwards.path, exit)
 			onwards.visited[exit]++
-			// fmt.Printf("Onwards: %#v\n", onwards.path)
 			explore(cavesmap, onwards)
 		case unicode.IsUpper(rune(exit[0])): // Grote grot, we kunnen altijd verder.
 			onwards.path = append(onwards.path, exit)
 			onwards.visited[exit]++
-			// fmt.Printf("Onwards: %#v\n", onwards.path)
 			explore(cavesmap, onwards)
-		default: // Uhm, zou niet moeten lukken?
+		default: // Uhm, hier zou de case niet moeten kunnen komen?
 			probleem := fmt.Sprintf("Exit: %s\nVisited: %#v\nPath: %#v\n", exit, onwards.visited, onwards.path)
 			panic(probleem)
 		}
@@ -70,6 +66,7 @@ func explore(cavesmap map[string][]string, Solution solution) {
 	return
 }
 
+// ReadMap zorgt voor een kaart van het grottenstelsel: elke ruimte met de bijbehorende exits.
 func ReadMap(maplines []string) map[string][]string {
 	var (
 		cavesmap   = make(map[string][]string)
@@ -88,6 +85,5 @@ func ReadMap(maplines []string) map[string][]string {
 			checkIfnew[comboreverse]++
 		}
 	}
-	// fmt.Printf("%#v\n", cavesmap)
 	return cavesmap
 }
